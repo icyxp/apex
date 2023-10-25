@@ -31,7 +31,7 @@ def manual_rms_norm(input, normalized_shape, weight, eps):
 
 class FusedLayerNormAffineFunction(torch.autograd.Function):
     @staticmethod
-    def forward(ctx, input, weight, bias, normalized_shape, eps, memory_efficient):
+    def forward(ctx, input, weight, bias, normalized_shape, eps, memory_efficient=True):
         global fused_layer_norm_cuda
         if fused_layer_norm_cuda is None:
             fused_layer_norm_cuda = importlib.import_module("fused_layer_norm_cuda")

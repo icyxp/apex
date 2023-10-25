@@ -116,6 +116,47 @@ void multi_tensor_adam_capturable_master_cuda(
   const float weight_decay,
   at::Tensor inv_scale);
 
+void multi_tensor_lion_cuda(
+  int chunk_size,
+  at::Tensor noop_flag,
+  std::vector<std::vector<at::Tensor>> tensor_lists,
+  const float lr,
+  const float beta1,
+  const float beta2,
+  const float epsilon,
+  const int step,
+  const int mode,
+  const int bias_correction,
+  const float weight_decay);
+
+void multi_tensor_lion_capturable_cuda(
+  int chunk_size,
+  at::Tensor noop_flag,
+  std::vector<std::vector<at::Tensor>> tensor_lists,
+  at::Tensor lr,
+  const float beta1,
+  const float beta2,
+  const float epsilon,
+  at::Tensor step,
+  const int mode,
+  const int bias_correction,
+  const float weight_decay,
+  at::Tensor inv_scale);
+
+void multi_tensor_lion_capturable_master_cuda(
+  int chunk_size,
+  at::Tensor noop_flag,
+  std::vector<std::vector<at::Tensor>> tensor_lists,
+  at::Tensor lr,
+  const float beta1,
+  const float beta2,
+  const float epsilon,
+  at::Tensor step,
+  const int mode,
+  const int bias_correction,
+  const float weight_decay,
+  at::Tensor inv_scale);
+
 void multi_tensor_adagrad_cuda(
   int chunk_size,
   at::Tensor noop_flag,
@@ -213,6 +254,12 @@ PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
         "Compute and apply gradient update to parameters for Adam optimizer with CUDA graph support and LR scheduling");
   m.def("multi_tensor_adam_capturable_master", &multi_tensor_adam_capturable_master_cuda,
         "Compute and apply gradient update to parameters for Adam optimizer with CUDA graph support, LR scheduling and FP32 master weights");
+  m.def("multi_tensor_lion", &multi_tensor_lion_cuda,
+        "Compute and apply gradient update to parameters for lion optimizer");
+  m.def("multi_tensor_lion_capturable", &multi_tensor_lion_capturable_cuda,
+        "Compute and apply gradient update to parameters for lion optimizer with CUDA graph support and LR scheduling");
+  m.def("multi_tensor_lion_capturable_master", &multi_tensor_lion_capturable_master_cuda,
+        "Compute and apply gradient update to parameters for lion optimizer with CUDA graph support, LR scheduling and FP32 master weights");
   m.def("multi_tensor_adagrad", &multi_tensor_adagrad_cuda,
         "Compute and apply gradient update to parameters for Adam optimizer");
   m.def("multi_tensor_novograd", &multi_tensor_novograd_cuda,

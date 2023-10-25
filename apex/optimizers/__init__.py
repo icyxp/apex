@@ -1,5 +1,6 @@
 from .fused_sgd import FusedSGD
 from .fused_adam import FusedAdam
+from .fused_lion import FusedLion
 from .fused_novograd import FusedNovoGrad
 from .fused_lamb import FusedLAMB
 from .fused_adagrad import FusedAdagrad
